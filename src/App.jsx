@@ -14,6 +14,7 @@ import { useState ,useEffect } from "react";
 import Ticket from "./components/Ticket/New_Ticket.jsx";
 import BackgroundBeams from "./components/BackgroundBeams/BackgroundBeams.jsx";
 import AuthPage from "./components/AuthPage/AuthPage.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/authpage" element={<AuthPage />} />
+    <Route path="/dashboard" element={<Dashboard />} />
     {/* <Route path="/members" element={<Members/>} /> */}
     {/* <Route path="/achievements" element={<Achievements/>} /> */}
     {/* <Route path="/project" element={<Project/>} /> */}
@@ -42,18 +44,6 @@ function App() {
   </Routes>
 </Router>)
 };
-  // return (
-  //   // <Router>
-  //   //   <Navbar/>
-  //   //   <Routes>
-  //   //     <Route path="/" element={<Home />} />
-  //   //     <Route path="/members" element={<Members/>} />
-  //   //     <Route path="/achievements" element={<Achievements/>} />
-  //   //     <Route path="/project" element={<Project/>} />
-  //   //     <Route path="/countdown" element={<Countdown/>} />
-  //   //   </Routes>
-  //   // </Router>
-  // )
 
 
 export default App

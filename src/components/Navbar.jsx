@@ -9,6 +9,7 @@ const Navbar = () => {
 
   const menuItems = [
     { name: 'Home', link: '/' },
+    { name: 'Dashboard', link: '/dashboard' },
     { name: 'Auth', link: '/authpage' },
     // { name: 'AboutUs', link: '/about-us' },
     // { name: 'Projects', link: '/project' },
