@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { CircleUser } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,6 +9,7 @@ const Navbar = () => {
 
   const menuItems = [
     { name: 'Home', link: '/' },
+    { name: 'Auth', link: '/authpage' },
     // { name: 'AboutUs', link: '/about-us' },
     // { name: 'Projects', link: '/project' },
     // { name: 'Activities', link: '/activities' },
@@ -22,12 +24,12 @@ const Navbar = () => {
   // At top (0px): 0px border radius
   // At scroll (100px): 2rem (32px) border radius
   const borderRadius = useTransform(scrollY, [0, 100], [0, 32]);
-  
+
   // Transform background opacity based on scroll
   const bgOpacity = useTransform(scrollY, [0, 100], [0.3, 0.9]);
 
   return (
-    <motion.nav 
+    <motion.nav
       className="px-4 py-3 font-heinch text-lg sticky top-0 bg-black z-10"
       style={{
         borderRadius: borderRadius,
@@ -40,21 +42,21 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <motion.div 
+        <motion.div
           className="text-white text-5xl my-5 font-bold"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
           <Link to="/countdown">
-          <img  src="/logo.png" alt="logo" className="w-10 h-10" />
+            <img src="/logo.png" alt="logo" className="w-10 h-10" />
           </Link>
         </motion.div>
 
         {/* Links and Hamburger */}
         <div className="flex items-center">
           {/* Desktop Links */}
-          <motion.div 
+          <motion.div
             className="hidden lg:flex space-x-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -70,16 +72,16 @@ const Navbar = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 {
-                  item.link === '#contact' ? 
-                  <Link to={item.link}>{item.name}</Link> :
-                  <a href={item.link}>{item.name}</a>
+                  item.link === '/authpage' ?
+                    <Link to={item.link}><CircleUser /></Link> :
+                    <Link to={item.link}>{item.name}</Link>
                 }
               </motion.a>
             ))}
           </motion.div>
 
           {/* Hamburger Icon */}
-          <motion.div 
+          <motion.div
             className="lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -119,7 +121,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <motion.div 
+        <motion.div
           className="lg:hidden"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
@@ -127,21 +129,21 @@ const Navbar = () => {
           transition={{ duration: 0.3 }}
         >
           {menuItems.map((item, index) => (
-        <motion.div
-          key={item.name}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, delay: 0.05 * index }}
-          whileHover={{ x: 10 }}
-        >
-          <Link
-            to={item.link}
-            className="block px-4 py-2 text-white hover:bg-blue-800 transition-colors"
-          >
-            {item.name}
-          </Link>
-        </motion.div>
-      ))}
+            <motion.div
+              key={item.name}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.05 * index }}
+              whileHover={{ x: 10 }}
+            >
+
+              {
+                item.link === '/authpage' ?
+                  <Link className="block px-4 py-2 text-white hover:bg-blue-800 transition-colors" to={item.link}><CircleUser /></Link> :
+                  <Link className="block px-4 py-2 text-white hover:bg-blue-800 transition-colors" to={item.link}>{item.name}</Link>
+              }
+            </motion.div>
+          ))}
         </motion.div>
       )}
     </motion.nav>
