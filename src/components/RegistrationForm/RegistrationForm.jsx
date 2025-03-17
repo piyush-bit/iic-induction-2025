@@ -87,7 +87,7 @@ function RegistrationForm({ onToggleForm }) {
         </div>
         <div>
           <input
-            type="text"
+            type="number"
             id="registrationNumber"
             name="registrationNumber"
             className="w-full px-4 py-3 bg-gray-800 border-l-4 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
@@ -97,17 +97,35 @@ function RegistrationForm({ onToggleForm }) {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <input
-            type="text"
+        <div className="relative">
+          <select
             id="domain"
             name="domain"
-            className="w-full px-4 py-3 bg-gray-800 border-l-4 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
-            placeholder="Domain"
+            className="w-full appearance-none px-4 py-3 bg-gray-800 border-l-4 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
             required
             value={formData.domain}
             onChange={handleChange}
-          />
+          >
+            <option value="" disabled>Select Domain</option>
+            <option value="cs">Computer Science</option>
+            <option value="electronics">Electronics</option>
+            <option value="management">Management</option>
+            <option value="mechanical">Mechanical</option>
+            <option value="chemical">Chemical</option>
+          </select>
+
+          {/* Custom dropdown arrow */}
+          <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
         <div>
           <input
