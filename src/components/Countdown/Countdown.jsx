@@ -46,7 +46,7 @@ const LaunchCountdown = () => {
   );
 
   return (
-    <div className="relative min-h-screen h-full bg-gradient-to-b bg-transparent from-black to-[#0D1321] flex items-center w-full gotham">
+    <div className="relative min-h-screen h-full bg-gradient-to-b bg-transparent from-black to-[#0D1321] flex items-center w-full ">
 
       <BackgroundBeams className="absolute z-[0]" />
       <div className="h-screen min-w-full w-full flex">
