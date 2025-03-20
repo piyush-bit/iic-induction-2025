@@ -14,6 +14,7 @@ import { AuthProvider } from "./components/Context/AuthContext";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
+import InductionPageWithStyles from "./components/InductionPage/InductionPage.jsx";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/authpage" element={<AuthPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<AuthPage />} />
+            <Route path="/inductionPage" element={<InductionPageWithStyles />} />
             <Route
               path="/"
               element={

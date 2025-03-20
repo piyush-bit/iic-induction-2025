@@ -21,6 +21,7 @@ function AuthPage() {
         <div className="w-full md:w-1/2 bg-gradient-to-br from-gray-800 to-gray-900 p-8 text-white relative">
           <div className="absolute inset-0 bg-cover bg-center opacity-20"
                style={{ backgroundImage: "url('/src/assets/background.jpg')" }}></div>
+               {/* Add background image */}
           <div className="relative flex flex-col justify-center h-full">
             <div className="mb-6">
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">IIC</span>

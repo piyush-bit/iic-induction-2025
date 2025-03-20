@@ -11,6 +11,7 @@ const Navbar = () => {
     { name: 'Home', link: '/' },
     { name: 'Dashboard', link: '/dashboard' },
     { name: 'Auth', link: '/authpage' },
+    { name: 'InductionPage', link: '/inductionPage' },
     // { name: 'AboutUs', link: '/about-us' },
     // { name: 'Projects', link: '/project' },
     // { name: 'Activities', link: '/activities' },
