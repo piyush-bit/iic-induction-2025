@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Award, Calendar, ChevronLeft, ChevronDown, ChevronRight, ExternalLink , Mail, 
   Facebook, 
@@ -32,26 +32,7 @@ function Home() {
       </section>
 
       <section className="text-white font-heinch mx-6 my-16">
-        {/* <div className="flex flex-wrap my-6">
-          <div className="flex-grow text-5xl">stats</div>
-          <div className="flex-grow flex flex-col gap-6">
-            <StatElements heading="Projects" content="10" />
-            <StatElements heading="Projects" content="10" />
-          </div>
-          
-          <div></div>
-        </div> */}
-
         <StatsAndAchievements />
-
-        {/* <div className="">
-          <div className="text-5xl">Achivements</div>
-          <div className="flex flex-wrap gap-4">
-            <AchievementCard />
-            <AchievementCard />
-          </div>
-          <p className=" text-sm ml-2 text-gray-400 underline ">view all</p>
-        </div> */}
 
         <div></div>
       </section>
@@ -122,20 +103,31 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="font-heinch text-3xl my-4 text-center"
         >
-          Make · Break · Create
+          Join · The · Innovation
         </motion.p>
 
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="justify-center flex mt-12"
+        >
+          <EnhancedDownArrows/>
+        </motion.div>
         {/* Call to Action */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-12 text-center"
+          className="mt-1 text-center"
         >
-          <button className="bg-white text-black px-8 py-3 rounded-md hover:bg-opacity-90 transition-all transform hover:scale-105">
-            Explore Projects
-          </button>
+          <Link to="/inductionPage">
+            <button className="bg-gray-900 translate-y-[-80px] text-white font-semibold px-8 py-3 rounded-md hover:bg-opacity-90 transition-all transform hover:scale-105">
+              Go For Induction
+            </button>
+          </Link>
         </motion.div>
+
       </motion.div>
     </section>
   );
@@ -258,7 +250,7 @@ Blockchain is the new talk of the town, but most people fail to realize its mean
               exit={{ opacity: 0, x: 20 }}
               className="relative h-[35rem] rounded-xl overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent " />
               <motion.img
                 src={data[currentIndex].image}
                 alt={data[currentIndex].title}
@@ -269,7 +261,7 @@ Blockchain is the new talk of the town, but most people fail to realize its mean
               />
               
               {/* Navigation Buttons */}
-              <div className="absolute bottom-6 right-6 flex gap-2 z-20">
+              <div className="absolute bottom-6 right-6 flex gap-2 z-1">
                 <button 
                   onClick={prevMilestone}
                   className="p-2 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors"
@@ -299,7 +291,7 @@ Blockchain is the new talk of the town, but most people fail to realize its mean
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
               
               {/* Content */}
-              <div className="relative z-10">
+              <div className="relative z-1">
                 <div className="flex items-center gap-2 text-blue-400 mb-6">
                   <Calendar className="w-5 h-5" />
                   <span className="text-lg">{data[currentIndex].date}</span>
@@ -752,5 +744,134 @@ export const Footer = () => {
         </motion.div>
       </div>
     </footer>
+  );
+};
+
+
+
+
+export const EnhancedDownArrows = () => {
+  const [firstArrowPos, setFirstArrowPos] = useState(0);
+  const [secondArrowPos, setSecondArrowPos] = useState(0);
+  const [thirdArrowPos, setThirdArrowPos] = useState(0);
+  const [fourthArrowPos, setFourthArrowPos] = useState(0);
+  
+  const [firstArrowOpacity, setFirstArrowOpacity] = useState(1);
+  const [secondArrowOpacity, setSecondArrowOpacity] = useState(0.6);
+  const [thirdArrowOpacity, setThirdArrowOpacity] = useState(0.6);
+  const [fourthArrowOpacity, setFourthArrowOpacity] = useState(0.6);
+
+  useEffect(() => {
+    const animateArrows = () => {
+      let startTime = null;
+      const animationDuration = 1500; // 1.5 seconds per cycle
+      
+      const animate = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const elapsed = (timestamp - startTime) % animationDuration;
+        const progress = elapsed / animationDuration;
+        
+        // First arrow animation
+        const firstArrowProgress = progress;
+        const firstArrowY = Math.sin(firstArrowProgress * Math.PI) * 12;
+        const firstOpacity = Math.cos(firstArrowProgress * Math.PI * 2) * 0.3 + 0.7;
+        
+        setFirstArrowPos(firstArrowY);
+        setFirstArrowOpacity(firstOpacity);
+        
+        // Second arrow animation (delayed relative to first)
+        const secondArrowProgress = (progress + 0.25) % 1;
+        const secondArrowY = Math.sin(secondArrowProgress * Math.PI) * 12;
+        const secondOpacity = Math.cos(secondArrowProgress * Math.PI * 2) * 0.3 + 0.7;
+        
+        setSecondArrowPos(secondArrowY);
+        setSecondArrowOpacity(secondOpacity);
+        
+        // Third arrow animation
+        const thirdArrowProgress = (progress + 0.5) % 1;
+        const thirdArrowY = Math.sin(thirdArrowProgress * Math.PI) * 12;
+        const thirdOpacity = Math.cos(thirdArrowProgress * Math.PI * 2) * 0.3 + 0.7;
+        
+        setThirdArrowPos(thirdArrowY);
+        setThirdArrowOpacity(thirdOpacity);
+        
+        // Fourth arrow animation
+        const fourthArrowProgress = (progress + 0.75) % 1;
+        const fourthArrowY = Math.sin(fourthArrowProgress * Math.PI) * 12;
+        const fourthOpacity = Math.cos(fourthArrowProgress * Math.PI * 2) * 0.3 + 0.7;
+        
+        setFourthArrowPos(fourthArrowY);
+        setFourthArrowOpacity(fourthOpacity);
+        
+        requestAnimationFrame(animate);
+      };
+      
+      const animationId = requestAnimationFrame(animate);
+      return () => cancelAnimationFrame(animationId);
+    };
+    
+    return animateArrows();
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center justify-center h-64 w-64">
+      <div className="relative w-24 h-96 flex flex-col items-center">
+        {/* First arrow */}
+        <div 
+          className="absolute transition-all duration-200 ease-in-out"
+          style={{ 
+            transform: `translateY(${firstArrowPos}px)`,
+            opacity: firstArrowOpacity,
+            top: '0px'
+          }}
+        >
+          <svg width="40" height="20" viewBox="0 0 40 20" fill="none">
+            <path d="M2 2 L20 18 L38 2" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        
+        {/* Second arrow */}
+        <div 
+          className="absolute transition-all duration-200 ease-in-out"
+          style={{ 
+            transform: `translateY(${secondArrowPos}px)`,
+            opacity: secondArrowOpacity,
+            top: '24px'
+          }}
+        >
+          <svg width="40" height="20" viewBox="0 0 40 20" fill="none">
+            <path d="M2 2 L20 18 L38 2" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        
+        {/* Third arrow */}
+        <div 
+          className="absolute transition-all duration-200 ease-in-out"
+          style={{ 
+            transform: `translateY(${thirdArrowPos}px)`,
+            opacity: thirdArrowOpacity,
+            top: '48px'
+          }}
+        >
+          <svg width="40" height="20" viewBox="0 0 40 20" fill="none">
+            <path d="M2 2 L20 18 L38 2" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        
+        {/* Fourth arrow */}
+        <div 
+          className="absolute transition-all duration-200 ease-in-out"
+          style={{ 
+            transform: `translateY(${fourthArrowPos}px)`,
+            opacity: fourthArrowOpacity,
+            top: '72px'
+          }}
+        >
+          <svg width="40" height="20" viewBox="0 0 40 20" fill="none">
+            <path d="M2 2 L20 18 L38 2" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+    </div>
   );
 };
