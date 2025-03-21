@@ -50,7 +50,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               {/* Add more protected routes here */}
             </Route>
-            <Route path="*" element={<NotFound />} />
+            {/* <Route path="*" element={<NotFound />} /> */}
             {/* <Route path="/members" element={<Members/>} /> */}
             {/* <Route path="/achievements" element={<Achievements/>} /> */}
             {/* <Route path="/project" element={<Project/>} /> */}

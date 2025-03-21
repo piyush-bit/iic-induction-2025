@@ -622,13 +622,13 @@ export const Footer = () => {
               Pushing the boundaries of innovation in rocketry and space technology. 
               Join us in our mission to reach for the stars.
             </p>
-            <a 
-              href="#"
+            <Link 
+              to="/inductionPage"
               className="inline-flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg transition-colors group"
             >
               Join Our Team
               <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </motion.div>
           <ContactUs />
           {/* Newsletter Section */}
