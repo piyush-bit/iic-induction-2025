@@ -1,15 +1,10 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Create the context
+// Create the AuthContext
 const AuthContext = createContext();
 
-// Custom hook to use the auth context
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-// Provider component
+// AuthProvider Component
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
@@ -22,8 +17,15 @@ export const AuthProvider = ({ children }) => {
     const user = localStorage.getItem('user');
     
     if (token && user) {
-      setAuthToken(token);
-      setCurrentUser(JSON.parse(user));
+      try {
+        setAuthToken(token);
+        setCurrentUser(JSON.parse(user));
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        // Clear invalid localStorage data
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+      }
     }
     
     setIsLoading(false);
@@ -32,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   // Login function
   const login = async (email, password) => {
     try {
-      const response = await fetch('https://your-api-url/api/auth/login', {
+      const response = await fetch('https://icc-backend-orientation.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,6 +58,7 @@ export const AuthProvider = ({ children }) => {
       
       return data;
     } catch (error) {
+      console.error('Login error:', error);
       throw error;
     }
   };
@@ -63,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   // Register function
   const register = async (userData) => {
     try {
-      const response = await fetch('https://your-api-url/api/auth/register', {
+      const response = await fetch('https://icc-backend-orientation.onrender.com/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,6 +90,7 @@ export const AuthProvider = ({ children }) => {
       
       return data;
     } catch (error) {
+      console.error('Registration error:', error);
       throw error;
     }
   };
@@ -105,7 +109,7 @@ export const AuthProvider = ({ children }) => {
     if (!authToken) return false;
     
     try {
-      const response = await fetch('https://your-api-url/api/auth/verify', {
+      const response = await fetch('https://icc-backend-orientation.onrender.com/api/auth/verify', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${authToken}`
@@ -119,6 +123,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Context value
   const value = {
     currentUser,
     authToken,
@@ -135,6 +140,18 @@ export const AuthProvider = ({ children }) => {
       {!isLoading && children}
     </AuthContext.Provider>
   );
+};
+
+// Custom hook to use the auth context
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  
+  // Throw an error if the hook is used outside of AuthProvider
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  
+  return context;
 };
 
 export default AuthProvider;

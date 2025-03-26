@@ -9,11 +9,30 @@ function RegistrationForm({ onToggleForm }) {
     email: '',
     password: '',
     registrationNumber: '',
-    domain: '',
+    primaryDomain: '',
+    secondaryDomain: '',
     contactNumber: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Primary domain array
+  const primaryDomains = [
+    { value: 'cs', label: 'Computer Science' },
+    { value: 'electronics', label: 'Electronics' },
+    { value: 'management', label: 'Management' },
+    { value: 'mechanical', label: 'Mechanical' },
+    { value: 'chemical', label: 'Chemical' }
+  ];
+
+  // Secondary domain array (can be different if needed)
+  const secondaryDomains = [
+    { value: 'math', label: 'Mathematics' },
+    { value: 'physics', label: 'Physics' },
+    { value: 'biology', label: 'Biology' },
+    { value: 'engineering', label: 'Engineering' },
+    { value: 'arts', label: 'Arts' }
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +47,7 @@ function RegistrationForm({ onToggleForm }) {
     setError('');
     
     try {
-      const response = await fetch('https://your-api-url/api/auth/register', {
+      const response = await fetch('https://icc-backend-orientation.onrender.com/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,37 +166,72 @@ function RegistrationForm({ onToggleForm }) {
             disabled={isLoading}
           />
         </div>
-        <div className="relative">
-          <select
-            id="domain"
-            name="domain"
-            className="w-full appearance-none px-4 py-3 bg-gray-800 border-l-4 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
-            required
-            value={formData.domain}
-            onChange={handleChange}
-            disabled={isLoading}
-          >
-            <option value="" disabled>Select Domain</option>
-            <option value="cs">Computer Science</option>
-            <option value="electronics">Electronics</option>
-            <option value="management">Management</option>
-            <option value="mechanical">Mechanical</option>
-            <option value="chemical">Chemical</option>
-          </select>
-
-          {/* Custom dropdown arrow */}
-          <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="relative">
+            <select
+              id="primaryDomain"
+              name="primaryDomain"
+              className="w-full appearance-none px-4 py-3 bg-gray-800 border-l-4 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
+              required
+              value={formData.primaryDomain}
+              onChange={handleChange}
+              disabled={isLoading}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
+              <option value="" disabled> Primary Domain </option>
+              {primaryDomains.map((domain) => (
+                <option key={domain.value} value={domain.value}>
+                  {domain.label}
+                </option>
+              ))}
+            </select>
+
+            {/* Custom dropdown arrow */}
+            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="relative">
+            <select
+              id="secondaryDomain"
+              name="secondaryDomain"
+              className="w-full appearance-none px-4 py-3 bg-gray-800 border-l-4 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
+              value={formData.secondaryDomain}
+              onChange={handleChange}
+              disabled={isLoading}
+            >
+              <option value=""> Secondary Domain </option>
+              {secondaryDomains.map((domain) => (
+                <option key={domain.value} value={domain.value}>
+                  {domain.label}
+                </option>
+              ))}
+            </select>
+
+            {/* Custom dropdown arrow */}
+            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
         </div>
+        
         <div>
           <input
             type="tel"

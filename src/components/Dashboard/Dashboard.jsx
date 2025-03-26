@@ -1,4 +1,4 @@
-import { useAuth } from '../Context/AuthContext';
+import { useAuth } from '.././Context/AuthContext';
 import { useState, useEffect } from 'react';
 import { Lock, Award, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 
