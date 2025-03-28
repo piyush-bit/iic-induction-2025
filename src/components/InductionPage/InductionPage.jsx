@@ -48,7 +48,7 @@ const InductionPage = () => {
       
     <div className="relative z-1 flex flex-col items-center justify-center h-full px-4 text-center">
         <h1 className="text-5xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-0 translate-y-8 animate-title">
-          Join our Induction Programme 2024
+          Join our Induction Programme 2025
         </h1>
         
         <h2 className="text-2xl md:text-3xl font-semibold mb-12 text-white/90 opacity-0 translate-y-8 animate-subtitle">
