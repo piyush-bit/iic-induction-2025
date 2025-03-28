@@ -10,9 +10,7 @@ import { useState, useEffect } from "react";
 import Ticket from "./components/Ticket/New_Ticket.jsx";
 import BackgroundBeams from "./components/BackgroundBeams/BackgroundBeams.jsx";
 import AuthPage from "./components/AuthPage/AuthPage.jsx";
-import { AuthProvider } from "./components/Context/AuthContext";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import InductionPageWithStyles from "./components/InductionPage/InductionPage.jsx";
 
@@ -31,7 +29,6 @@ function App() {
     (
       <Router>
         <Navbar />
-        <AuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/authpage" element={<AuthPage />} />
@@ -46,10 +43,8 @@ function App() {
                   <Navigate to="/login" replace />
               }
             />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              {/* Add more protected routes here */}
-            </Route>
+            <Route path="/dashboard" element={<Dashboard />} />
+            
             {/* <Route path="*" element={<NotFound />} /> */}
             {/* <Route path="/members" element={<Members/>} /> */}
             {/* <Route path="/achievements" element={<Achievements/>} /> */}
@@ -58,7 +53,6 @@ function App() {
             {/* <Route path="/ticket" element={<Ticket />} /> */}
             {/* <Route path="/background-beams" element={<BackgroundBeams />} /> */}
           </Routes>
-        </AuthProvider>
       </Router>)
 };
 

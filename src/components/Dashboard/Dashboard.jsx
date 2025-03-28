@@ -1,13 +1,18 @@
-import { useAuth } from '.././Context/AuthContext';
 import { useState, useEffect } from 'react';
 import { Lock, Award, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
-  const { logout } = useAuth();
+  // const { logout } = useAuth();
+  const logout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/login');
+  };
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
   const [quizData, setQuizData] = useState({
-    round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'March 25, 2025' },
+    round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'March 29, 2025' },
     round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'March 28, 2025' },
     round3: { status: 'locked', score: null, maxScore: 200, unlockDate: 'April 1, 2025' },
     currentRound: null
@@ -18,7 +23,7 @@ function Dashboard() {
     const fetchQuizData = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        if(!token) return;
+        if(!token) navigate('/login'); // Redirect to login if token is not found;
         console.log('Token:', token);
         const response = await fetch('https://icc-backend-orientation.onrender.com/api/auth/', {
           headers: {
