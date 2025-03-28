@@ -594,11 +594,11 @@ export const Footer = () => {
   ];
 
   const socialLinks = [
-    { Icon: Facebook, href: "#", label: "Facebook" },
+    { Icon: Facebook, href: "https://m.facebook.com/ideaclubvssut/", label: "Facebook" },
     { Icon: Twitter, href: "#", label: "Twitter" },
     { Icon: Youtube, href: "#", label: "Youtube" },
     { Icon: Linkedin, href: "#", label: "LinkedIn" },
-    { Icon: Instagram, href: "#", label: "Instagram" }
+    { Icon: Instagram, href: "https://www.instagram.com/idea_labs/?utm_source=ig_web_button_share_sheet ", label: "Instagram" }
   ];
 
   return (
@@ -730,6 +730,7 @@ export const Footer = () => {
                   href={href}
                   aria-label={label}
                   className="text-gray-400 hover:text-white transition-colors"
+                  target="_blank"
                 >
                   <Icon className="w-5 h-5" />
                 </a>

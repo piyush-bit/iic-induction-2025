@@ -47,8 +47,8 @@ function App() {
             
             {/* <Route path="*" element={<NotFound />} /> */}
             {/* <Route path="/members" element={<Members/>} /> */}
-            {/* <Route path="/achievements" element={<Achievements/>} /> */}
-            {/* <Route path="/project" element={<Project/>} /> */}
+            <Route path="/achievements" element={<Achievements/>} />
+            <Route path="/projects" element={<Project/>} />
             {/* <Route path="/countdown" element={<Countdown/>} /> */}
             {/* <Route path="/ticket" element={<Ticket />} /> */}
             {/* <Route path="/background-beams" element={<BackgroundBeams />} /> */}
