@@ -62,9 +62,9 @@ const InductionPage = () => {
           </button>
           </Link>
           
-          <button className="px-8 py-4 bg-transparent border-2 border-sky-400 rounded-full text-white font-medium text-lg transition-all duration-300 hover:bg-sky-400 hover:text-black hover:shadow-lg hover:shadow-sky-500/30">
+          {/* <button className="px-8 py-4 bg-transparent border-2 border-sky-400 rounded-full text-white font-medium text-lg transition-all duration-300 hover:bg-sky-400 hover:text-black hover:shadow-lg hover:shadow-sky-500/30">
             WATCH VIDEO
-          </button>
+          </button> */}
         </div>
     </div>
     </div>
