@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Lock, Award, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { Lock, Award, AlertTriangle, CheckCircle, Clock, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
@@ -12,9 +12,9 @@ function Dashboard() {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
   const [quizData, setQuizData] = useState({
-    round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'March 29, 2025' },
-    round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'March 28, 2025' },
-    round3: { status: 'locked', score: null, maxScore: 200, unlockDate: 'April 1, 2025' },
+    round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'TBD' },
+    round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'TBD' },
+    round3: { status: 'locked', score: null, maxScore: 200, unlockDate: 'TBD' },
     currentRound: null
   });
 
@@ -36,10 +36,10 @@ function Dashboard() {
           setCurrentUser(prev => ({ ...prev, firstName, lastName, email }));
         }
         setQuizData({
-          round1: { status: 'available', score: null, maxScore: 100, unlockDate: 'Now Available' },
-          round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'March 28, 2025' },
-          round3: { status: 'locked', score: null, maxScore: 200, unlockDate: 'April 1, 2025' },
-          currentRound: 'round1'
+          round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'TBD' },
+          round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'TBD' },
+          round3: { status: 'locked', score: null, maxScore: 200, unlockDate: 'TBD' },
+          currentRound: null
         });
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -70,8 +70,8 @@ function Dashboard() {
   };
 
   const handleTakeQuiz = () => {
-    // Would normally navigate to the quiz page or start the quiz
-    alert(`Starting ${quizData.currentRound ? quizData.currentRound.replace('round', 'Round ') : 'the quiz'}!`);
+    // Quiz is locked
+    alert('Quiz is currently locked. Please check back later.');
   };
 
   return (
@@ -103,22 +103,19 @@ function Dashboard() {
             {/* Main Panel */}
             <div className="w-full md:w-2/3 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden">
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-8">
-                <h2 className="text-3xl font-bold mb-2">Welcome to the Quiz Challenge!</h2>
-                <p className="text-blue-100">Complete all rounds to earn your certification</p>
+                <h2 className="text-3xl font-bold mb-2">Welcome to the Induction!</h2>
+                <p className="text-blue-100">Quizzes will be available soon</p>
               </div>
               
               <div className="p-6">
                 <div className="flex justify-center my-8">
                   <button 
                     onClick={handleTakeQuiz}
-                    className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white text-xl font-bold px-8 py-4 rounded-full shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl flex items-center justify-center"
+                    className="bg-gray-500 text-white text-xl font-bold px-8 py-4 rounded-full shadow-lg cursor-not-allowed opacity-50 flex items-center justify-center"
+                    disabled
                   >
-                    <span className="mr-2">Take Quiz</span>
-                    {quizData.currentRound && (
-                      <span className="bg-white text-emerald-600 text-sm font-bold px-2 py-1 rounded-full">
-                        {quizData.currentRound.replace('round', 'Round ')}
-                      </span>
-                    )}
+                    <Lock size={24} className="mr-2" />
+                    Take Quiz
                   </button>
                 </div>
                 
@@ -127,7 +124,7 @@ function Dashboard() {
                   
                   <div className="space-y-6">
                     {/* Round 1 */}
-                    <div className="bg-gray-700/50 rounded-lg p-4 flex items-center border-l-4 border-green-500">
+                    <div className="bg-gray-700/50 rounded-lg p-4 flex items-center border-l-4 border-gray-500 opacity-80">
                       <div className={`${getRoundStatusColor(quizData.round1.status)} p-3 rounded-full mr-4`}>
                         {getRoundStatusIcon(quizData.round1.status)}
                       </div>
@@ -135,18 +132,10 @@ function Dashboard() {
                         <div className="flex justify-between">
                           <h4 className="font-semibold text-lg">Round 1</h4>
                           <div className="text-right">
-                            {quizData.round1.score !== null ? (
-                              <span className="text-emerald-400 font-bold">
-                                {quizData.round1.score}/{quizData.round1.maxScore}
-                              </span>
-                            ) : (
-                              <span className="text-blue-300 text-sm">
-                                {quizData.round1.unlockDate}
-                              </span>
-                            )}
+                            <span className="text-gray-400 text-sm">Locked</span>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm">Fundamentals Quiz - 10 questions</p>
+                        <p className="text-gray-400 text-sm">Fundamentals Quiz - Unavailable</p>
                       </div>
                     </div>
                     
@@ -159,12 +148,10 @@ function Dashboard() {
                         <div className="flex justify-between">
                           <h4 className="font-semibold text-lg">Round 2</h4>
                           <div className="text-right">
-                            <span className="text-yellow-300 text-sm">
-                              Unlocks {quizData.round2.unlockDate}
-                            </span>
+                            <span className="text-gray-400 text-sm">Locked</span>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm">Advanced Concepts - 15 questions</p>
+                        <p className="text-gray-400 text-sm">Advanced Concepts - Unavailable</p>
                       </div>
                     </div>
                     
@@ -177,12 +164,10 @@ function Dashboard() {
                         <div className="flex justify-between">
                           <h4 className="font-semibold text-lg">Round 3</h4>
                           <div className="text-right">
-                            <span className="text-yellow-300 text-sm">
-                              Unlocks {quizData.round3.unlockDate}
-                            </span>
+                            <span className="text-gray-400 text-sm">Locked</span>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm">Expert Challenge - 20 questions</p>
+                        <p className="text-gray-400 text-sm">Expert Challenge - Unavailable</p>
                       </div>
                     </div>
                   </div>
@@ -214,23 +199,51 @@ function Dashboard() {
                   Results
                 </h3>
                 <div className="bg-gray-700/50 rounded-lg p-6 text-center">
-                  <AlertTriangle size={40} className="mx-auto mb-4 text-yellow-400" />
-                  <p className="text-gray-300">Results will be available after completing quizzes</p>
+                  <Lock size={40} className="mx-auto mb-4 text-gray-400" />
+                  <p className="text-gray-300">Results are currently locked</p>
                   <div className="mt-4 w-full h-3 bg-gray-600 rounded-full overflow-hidden">
                     <div className="bg-yellow-500 h-full rounded-full" style={{ width: '0%' }}></div>
                   </div>
                 </div>
               </div>
               
-              {/* Locked Features */}
+              {/* Progress Overview */}
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
-                  <Lock size={16} className="mr-2 text-gray-400" />
-                  Certificates
+                  <TrendingUp size={16} className="mr-2 text-blue-400" />
+                  Progress Overview
                 </h3>
-                <div className="bg-gray-700/50 rounded-lg p-6 text-center">
-                  <Award size={40} className="mx-auto mb-4 text-gray-400" />
-                  <p className="text-gray-300">Complete all rounds to unlock your certificates</p>
+                <div className="bg-gray-700/50 rounded-lg p-6">
+                  <div className="mb-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-gray-300">Total Progress</span>
+                      <span className="text-blue-400 font-bold">0%</span>
+                    </div>
+                    <div className="w-full h-3 bg-gray-600 rounded-full overflow-hidden">
+                      <div className="bg-blue-500 h-full rounded-full" style={{ width: '0%' }}></div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center">
+                      <Lock size={16} className="mr-2 text-gray-400" />
+                      <span className="text-gray-300">Round 1 Locked</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Lock size={16} className="mr-2 text-gray-400" />
+                      <span className="text-gray-300">Round 2 Locked</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Lock size={16} className="mr-2 text-gray-400" />
+                      <span className="text-gray-300">Round 3 Locked</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 bg-gray-800 rounded-lg p-3 text-center">
+                    <p className="text-sm text-gray-400">
+                      All rounds are currently locked. Check back soon!
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
