@@ -13,6 +13,7 @@ import AuthPage from "./components/AuthPage/AuthPage.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import InductionPageWithStyles from "./components/InductionPage/InductionPage.jsx";
+import DomainCarousel from "./components/Domain/DomainCarousel.jsx";
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
             {/* <Route path="/members" element={<Members/>} /> */}
             <Route path="/achievements" element={<Achievements/>} />
             <Route path="/projects" element={<Project/>} />
+            {/* <Route path="/car" element={<DomainCarousel/>} /> */}
             {/* <Route path="/countdown" element={<Countdown/>} /> */}
             {/* <Route path="/ticket" element={<Ticket />} /> */}
             {/* <Route path="/background-beams" element={<BackgroundBeams />} /> */}
