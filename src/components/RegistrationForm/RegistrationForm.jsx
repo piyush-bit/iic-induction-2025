@@ -18,20 +18,18 @@ function RegistrationForm({ onToggleForm }) {
 
   // Primary domain array
   const primaryDomains = [
-    { value: 'cs', label: 'Computer Science' },
-    { value: 'electronics', label: 'Electronics' },
-    { value: 'management', label: 'Management' },
     { value: 'mechanical', label: 'Mechanical' },
-    { value: 'chemical', label: 'Chemical' }
+    { value: 'chemical', label: 'Chemical' },
+    { value: 'electronics', label: 'Electronics' },
+    { value: 'computer_science', label: 'Computer Science' },
+    { value: 'management', label: 'Management' }
   ];
-
-  // Secondary domain array (can be different if needed)
+  
+  // Updated secondary domain array
   const secondaryDomains = [
-    { value: 'math', label: 'Mathematics' },
-    { value: 'physics', label: 'Physics' },
-    { value: 'biology', label: 'Biology' },
-    { value: 'engineering', label: 'Engineering' },
-    { value: 'arts', label: 'Arts' }
+    { value: 'graphic_design', label: 'Graphic Designing' },
+    { value: 'content_writing', label: 'Content Writing' },
+    { value: 'video_editing', label: 'Video Editing' }
   ];
 
   const handleChange = (e) => {
