@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { Lock, Award, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 
 function Dashboard() {
-  const { currentUser, logout } = useAuth();
+  const { logout } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
   const [quizData, setQuizData] = useState({
     round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'March 25, 2025' },
     round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'March 28, 2025' },
@@ -15,17 +16,31 @@ function Dashboard() {
   // Simulate fetching quiz data
   useEffect(() => {
     const fetchQuizData = async () => {
-      // Simulate API delay
-      setTimeout(() => {
-        // This would be replaced by actual API call
+      try {
+        const token = localStorage.getItem('authToken');
+        if(!token) return;
+        console.log('Token:', token);
+        const response = await fetch('https://icc-backend-orientation.onrender.com/api/auth/', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        if (data.student) {
+          const { firstName, lastName, email } = data.student;
+          setCurrentUser(prev => ({ ...prev, firstName, lastName, email }));
+        }
         setQuizData({
           round1: { status: 'available', score: null, maxScore: 100, unlockDate: 'Now Available' },
           round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'March 28, 2025' },
           round3: { status: 'locked', score: null, maxScore: 200, unlockDate: 'April 1, 2025' },
           currentRound: 'round1'
         });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
         setIsLoading(false);
-      }, 800);
+      }
     };
     
     fetchQuizData();
