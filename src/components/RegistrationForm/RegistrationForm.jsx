@@ -29,7 +29,8 @@ function RegistrationForm({ onToggleForm }) {
   const secondaryDomains = [
     { value: 'graphic_design', label: 'Graphic Designing' },
     { value: 'content_writing', label: 'Content Writing' },
-    { value: 'video_editing', label: 'Video Editing' }
+    { value: 'video_editing', label: 'Video Editing' },
+    { value: 'na', label: 'None' }
   ];
 
   const handleChange = (e) => {
@@ -43,6 +44,13 @@ function RegistrationForm({ onToggleForm }) {
     e.preventDefault();
     setIsLoading(true);
     setError('');
+    
+    // Validate that both primary and secondary domains are selected
+    if (!formData.primaryDomain || !formData.secondaryDomain) {
+      setError('Please select both Primary and Secondary Domains');
+      setIsLoading(false);
+      return;
+    }
     
     try {
       const response = await fetch('https://icc-backend-orientation.onrender.com/api/auth/signup', {
@@ -203,11 +211,12 @@ function RegistrationForm({ onToggleForm }) {
               id="secondaryDomain"
               name="secondaryDomain"
               className="w-full appearance-none px-4 py-3 bg-gray-800 border-l-4 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
+              required
               value={formData.secondaryDomain}
               onChange={handleChange}
               disabled={isLoading}
             >
-              <option value=""> Secondary Domain </option>
+              <option value="" disabled> Secondary Domain </option>
               {secondaryDomains.map((domain) => (
                 <option key={domain.value} value={domain.value}>
                   {domain.label}
@@ -262,7 +271,7 @@ function RegistrationForm({ onToggleForm }) {
         </button>
       </form>
       <div className="mt-4 text-center text-sm text-gray-400">
-        <p>By signing up, you agree to our <a href="#" className="text-blue-400 hover:text-blue-300">Terms of Service</a> and <a href="#" className="text-blue-400 hover:text-blue-300">Privacy Policy</a>.</p>
+        <p>Make A Step Towards The Revolution .</p>
       </div>
     </div>
   );
