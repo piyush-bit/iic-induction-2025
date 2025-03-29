@@ -43,13 +43,13 @@ const ContactUs = () => {
           <h3 className="text-lg font-henich flex items-center gap-2 mt-4">
             <FaEnvelope /> Email:
           </h3>
-          <p className="mt-2 font-henich text-sm">iic.vssut@gmail.com</p>
+          <p className="mt-2 font-henich text-sm">iic@vssut.ac.in</p>
 
           <h3 className="text-lg font-henich flex items-center gap-2 mt-4">
             <FaPhone /> Call:
           </h3>
-          <p className="mt-2  font-henich text-sm">+91-7608009484</p>
-          <p className="mt-2 font-henich text-sm">+91-83288 43197</p>
+          <p className="mt-2  font-henich text-sm">+91-7846808104</p>
+          <p className="mt-2 font-henich text-sm">+91-6371409570</p>
         </div>
 
         {/* Contact Form Section */}
@@ -104,7 +104,7 @@ const ContactUs = () => {
 
             
               <a
-                  href={`mailto:iic.vssut@gmail.com?subject=Contact%20Us&body=Name:%20${encodeURIComponent(
+                  href={`mailto:iic@vssut.ac.in?subject=Contact%20Us&body=Name:%20${encodeURIComponent(
                     formData.name
                   )}%0AEmail:%20${encodeURIComponent(formData.email)}%0APhone:%20${encodeURIComponent(
                     formData.phone
