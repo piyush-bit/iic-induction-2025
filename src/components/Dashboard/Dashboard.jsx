@@ -9,7 +9,9 @@ function Dashboard() {
     navigate('/login');
   };
   const [isLoading, setIsLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [domain, setDomain] = useState(null);
+  const [quizUrl, setQuizUrl] = useState("#");
   const navigate = useNavigate();
   const [quizData, setQuizData] = useState({
     round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'TBD' },
@@ -32,14 +34,40 @@ function Dashboard() {
         });
         const data = await response.json();
         if (data.student) {
-          const { firstName, lastName, email } = data.student;
-          setCurrentUser(prev => ({ ...prev, firstName, lastName, email }));
+          // console.log('User Data:', data.student);
+          // console.log('Current:', currentUser)
+          const { firstName, lastName, email, primaryDomain } = data.student;
+          setCurrentUser(prev => ({ ...prev, firstName, lastName, email, primaryDomain }));
+          setDomain(primaryDomain);
+          
+          // Set quiz URL based on primaryDomain
+          if(primaryDomain === "computer_science" || primaryDomain === "cs"){
+            setQuizUrl("https://iic-183532.learnyst.com/learn/computer-science");
+          }
+          else if(primaryDomain === "management" || primaryDomain === "Management"){
+            setQuizUrl("https://iic-183532.learnyst.com/learn/Management");
+          }
+          else if(primaryDomain === "mechanical" ||primaryDomain === "Mechanical"){
+            setQuizUrl("https://iic-183532.learnyst.com/learn/Mechanical");
+          }
+          else if(primaryDomain === "chemical"  || primaryDomain === "Chemical"){
+            setQuizUrl("https://iic-183532.learnyst.com/learn/Chemical");
+          }
+          else if(primaryDomain === "electronics" || primaryDomain === "Electronics"){
+            setQuizUrl("https://iic-183532.learnyst.com/learn/Electronics");
+          }
+          else{
+            setQuizUrl("#");
+          }
+          // console.log('Current (a):', currentUser)
         }
+        
+        // Set Round 1 as available
         setQuizData({
-          round1: { status: 'locked', score: null, maxScore: 100, unlockDate: 'TBD' },
+          round1: { status: 'available', score: null, maxScore: 100, unlockDate: '30 Mar 2025' },
           round2: { status: 'locked', score: null, maxScore: 150, unlockDate: 'TBD' },
           round3: { status: 'locked', score: null, maxScore: 200, unlockDate: 'TBD' },
-          currentRound: null
+          currentRound: 1
         });
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -49,7 +77,7 @@ function Dashboard() {
     };
     
     fetchQuizData();
-  }, []);
+  }, [navigate]);
 
   const getRoundStatusColor = (status) => {
     switch(status) {
@@ -67,11 +95,6 @@ function Dashboard() {
       case 'completed': return <CheckCircle size={24} />;
       default: return <AlertTriangle size={24} />;
     }
-  };
-
-  const handleTakeQuiz = () => {
-    // Quiz is locked
-    alert('Quiz is currently locked. Please check back later.');
   };
 
   return (
@@ -104,19 +127,19 @@ function Dashboard() {
             <div className="w-full md:w-2/3 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden">
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-8">
                 <h2 className="text-3xl font-bold mb-2">Welcome to the Induction!</h2>
-                <p className="text-blue-100">Quizzes will be available soon</p>
+                <p className="text-blue-100">Round 1 quiz is now available!</p>
               </div>
               
               <div className="p-6">
                 <div className="flex justify-center my-8">
-                  <button 
-                    onClick={handleTakeQuiz}
-                    className="bg-gray-500 text-white text-xl font-bold px-8 py-4 rounded-full shadow-lg cursor-not-allowed opacity-50 flex items-center justify-center"
-                    disabled
-                  >
-                    <Lock size={24} className="mr-2" />
-                    Take Quiz
-                  </button>
+                  <a href={quizUrl} target="_blank" rel="noopener noreferrer">
+                    <button 
+                      onClick={() => console.log('Quiz URL:', quizUrl)}
+                      className="bg-green-600 hover:bg-green-700 text-white text-xl font-bold px-8 py-4 rounded-full shadow-lg transition duration-300 flex items-center justify-center"
+                    >
+                      Take Quiz
+                    </button>
+                  </a>
                 </div>
                 
                 <div className="mt-12">
@@ -124,7 +147,7 @@ function Dashboard() {
                   
                   <div className="space-y-6">
                     {/* Round 1 */}
-                    <div className="bg-gray-700/50 rounded-lg p-4 flex items-center border-l-4 border-gray-500 opacity-80">
+                    <div className="bg-gray-700/50 rounded-lg p-4 flex items-center border-l-4 border-green-500">
                       <div className={`${getRoundStatusColor(quizData.round1.status)} p-3 rounded-full mr-4`}>
                         {getRoundStatusIcon(quizData.round1.status)}
                       </div>
@@ -132,10 +155,10 @@ function Dashboard() {
                         <div className="flex justify-between">
                           <h4 className="font-semibold text-lg">Round 1</h4>
                           <div className="text-right">
-                            <span className="text-gray-400 text-sm">Locked</span>
+                            <span className="text-green-400 text-sm">Available Now</span>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm">Fundamentals Quiz - Unavailable</p>
+                        <p className="text-gray-400 text-sm">Fundamentals Quiz </p>
                       </div>
                     </div>
                     
@@ -151,7 +174,7 @@ function Dashboard() {
                             <span className="text-gray-400 text-sm">Locked</span>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm">Advanced Concepts - Unavailable</p>
+                        <p className="text-gray-400 text-sm">PI round - 1</p>
                       </div>
                     </div>
                     
@@ -167,7 +190,7 @@ function Dashboard() {
                             <span className="text-gray-400 text-sm">Locked</span>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm">Expert Challenge - Unavailable</p>
+                        <p className="text-gray-400 text-sm">PI round -2</p>
                       </div>
                     </div>
                   </div>
@@ -187,6 +210,7 @@ function Dashboard() {
                     <div>
                       <h3 className="text-xl font-bold">{currentUser?.firstName} {currentUser?.lastName || 'User'}</h3>
                       <p className="text-gray-400 text-sm">{currentUser?.email || 'user@example.com'}</p>
+                      <p className="text-blue-300 text-sm mt-1">Domain: {currentUser?.primaryDomain || 'Not set'}</p>
                     </div>
                   </div>
                 </div>
@@ -226,8 +250,8 @@ function Dashboard() {
                   
                   <div className="space-y-3">
                     <div className="flex items-center">
-                      <Lock size={16} className="mr-2 text-gray-400" />
-                      <span className="text-gray-300">Round 1 Locked</span>
+                      <Clock size={16} className="mr-2 text-green-400" />
+                      <span className="text-green-300">Round 1 Available</span>
                     </div>
                     <div className="flex items-center">
                       <Lock size={16} className="mr-2 text-gray-400" />
@@ -241,7 +265,7 @@ function Dashboard() {
                   
                   <div className="mt-4 bg-gray-800 rounded-lg p-3 text-center">
                     <p className="text-sm text-gray-400">
-                      All rounds are currently locked. Check back soon!
+                      Round 1 is now available! Click the "Take Quiz" button to begin.
                     </p>
                   </div>
                 </div>
